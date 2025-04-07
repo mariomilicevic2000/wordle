@@ -195,6 +195,7 @@ export default function Wordle() {
                 onKeyDown={handleKeyPress}
                 autoFocus
                 onClick={(e) => e.preventDefault()}
+                tabIndex={-1}
             />
 
             <Grid
