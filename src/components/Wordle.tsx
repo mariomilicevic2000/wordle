@@ -183,7 +183,7 @@ export default function Wordle() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 py-8 bg-gradient-to-b from-slate-50 to-slate-200 transition-colors">
             {(hasWon || hasLost) && <GameOverModal onClose={resetGame} hasWon={hasWon} hasLost={hasLost} wordToGuess={wordToGuess}/>}
             {/* Hidden input field to capture all user input */}
             <input
@@ -199,7 +199,7 @@ export default function Wordle() {
                 onClick={(e) => e.preventDefault()}
                 tabIndex={-1}
             />
-
+            <div className="mb-6">
             <Grid
                 guessesByLetters={guesses}
                 tileFeedbacksRows={tileFeedbackRows}
@@ -208,8 +208,10 @@ export default function Wordle() {
                 flippingTiles={flippingTiles}
                 isShaking={isShaking}
             />
+            </div>
+
             <Keyboard keyStatuses={keyStatuses} onKeyClick={onKeyClick} />
-            <button onClick={handleLose} className="bg-red-400 text-white px-4 py-2 rounded-md mt-4">Give up</button>
+            <button onClick={handleLose} className="mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow transition-colors">Give up</button>
         </div>
     );
 }

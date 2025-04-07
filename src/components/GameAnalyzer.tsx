@@ -126,60 +126,74 @@ export default function GameAnalyzer() {
     // const hotnessValues = guessHotness(guessesJoined, correctGuess, wordsHistory, TOTAL_WORDS);
 
     return (
-        <div className="flex flex-col justify-center items-center">
-            <p>Want to play again?</p>
-            <button onClick={handleNavigate} className="m-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Play Again!</button>
-            <PostGameSummaryCard result={result!} guesses={guesses} time={time!} correctGuess={correctGuess}/>
-            <ReviewCard totalGames={totalGames} wins={wins} losses={losses} winrate={winrate} avgGuesses={avgGuesses} avgTime={avgTime} />
-
-            <p>At the beginning, there are {potentialWords.length} words.</p>
-
-            {/* Use the DisplayRow component for displaying guesses and feedback */}
-            {(() => {
-                const renderedRows = [];
-
-                for (let guessIndex = 0; guessIndex < guesses.length; guessIndex++) {
-                    const guess = guesses[guessIndex];
-
-                    // Stop rendering if the guess is empty
-                    if (guess.every(letter => letter === "")) break;
-
-                    renderedRows.push(
-                        <div key={guessIndex} className="mb-4">
-                            <DisplayRow
-                                rowIndex={guessIndex}
-                                currentRow={guesses.length - 1}
-                                tileStatus="guessed"
-                                letters={guess}
-                                tileFeedbacks={feedbacks[guessIndex] as TileFeedback[]}
-                            />
-                            <div className="mt-2">
-                                {
-                                    wordsHistory[guessIndex] > 0 ? (
-                                        <>
-                                        <p className="text-sm text-gray-600">
-                                            After guess {guessIndex + 1}, there are{" "}
-                                            <span className="font-semibold text-blue-500">{wordsHistory[guessIndex]}</span>{" "}
-                                            potential words left.
-                                        </p>
-                                        {/* <p>Guess hotness: {hotnessValues[guessIndex]}</p> */}
-                                        </>
-                                    ) : guess.every((letter, index) => letter.toUpperCase() === correctGuess[index].toUpperCase()) ? (
-                                        <p className="text-sm text-green-600 font-semibold">You guessed it right!</p>
-                                    ) : (
-                                        <p className="text-sm text-red-600 font-semibold">You lost!</p>
-                                    )
-                                }
-
-                            </div>
-                        </div>
-                    );
-                }
-
-                return renderedRows;
-            })()}
-
-
+        <div className="flex flex-col justify-center items-center px-4 py-8 space-y-6">
+          <div className="text-center">
+            <p className="text-lg text-gray-700">Want to play again?</p>
+            <button
+              onClick={handleNavigate}
+              className="mt-3 px-5 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition-colors"
+            >
+              Play Again!
+            </button>
+          </div>
+      
+          <PostGameSummaryCard
+            result={result!}
+            guesses={guesses}
+            time={time!}
+            correctGuess={correctGuess}
+          />
+      
+          <ReviewCard
+            totalGames={totalGames}
+            wins={wins}
+            losses={losses}
+            winrate={winrate}
+            avgGuesses={avgGuesses}
+            avgTime={avgTime}
+          />
+      
+          <p className="text-md text-gray-600">
+            There are <span className="font-semibold text-blue-500">{potentialWords.length}</span> possible words at the start.
+          </p>
+      
+          <div className="w-full max-w-2xl space-y-6 mt-4">
+            {guesses.map((guess, guessIndex) => {
+              if (guess.every(letter => letter === "")) return null;
+      
+              return (
+                <div key={guessIndex} className="border rounded-lg p-4 bg-white shadow flex items-center flex-col">
+                  <DisplayRow
+                    rowIndex={guessIndex}
+                    currentRow={guesses.length - 1}
+                    tileStatus="guessed"
+                    letters={guess}
+                    tileFeedbacks={feedbacks[guessIndex] as TileFeedback[]}
+                  />
+                  <div className="mt-3 text-sm">
+                    {wordsHistory[guessIndex] > 0 ? (
+                        <>
+                      <p className="text-gray-800">
+                        After guess <span className="font-semibold">{guessIndex + 1}</span>,{" "}
+                        <span className="text-blue-500 font-semibold">{wordsHistory[guessIndex]}</span> words remain.
+                      </p>
+                        <p className="text-gray-600">This guess eliminates {" "}
+                            {guessIndex === 0 
+                            ? (potentialWords.length-wordsHistory[guessIndex]) 
+                            : (wordsHistory[guessIndex-1]-wordsHistory[guessIndex])
+                        } words from selection</p>
+                      </>
+                    ) : guess.every((l, i) => l.toUpperCase() === correctGuess[i].toUpperCase()) ? (
+                      <p className="text-green-600 font-semibold">You guessed it right!</p>
+                    ) : (
+                      <p className="text-red-600 font-semibold">You lost!</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-    );
+      );
+      
 }
