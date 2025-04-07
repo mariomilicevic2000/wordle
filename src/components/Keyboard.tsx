@@ -3,8 +3,8 @@ import { KeyStatus } from "../types";
 import Key from "./Key";
 
 interface KeyboardProps {
-    keyStatuses : KeyStatus[];
-    onKeyClick: (key : string) => void;
+    keyStatuses: KeyStatus[];
+    onKeyClick: (key: string) => void;
 }
 
 export default function Keyboard({ keyStatuses, onKeyClick }: KeyboardProps) {
@@ -15,11 +15,11 @@ export default function Keyboard({ keyStatuses, onKeyClick }: KeyboardProps) {
     ];
 
     return (
-        <div className="flex justify-center items-center flex-row w-full">
+        <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center w-full">
             <Key key="backspace" letter="Backspace" keyStatus="not-guessed" onKeyClick={onKeyClick} />
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center w-full sm:w-auto">
                 {rows.map((row, rowIndex) => (
-                    <div key={rowIndex} className="m-2">
+                    <div key={rowIndex} className="flex justify-center w-full">
                         {row.map((letter) => {
                             const keyIndex = regularKeys.indexOf(letter); // Get the actual QWERTY index
                             return (
