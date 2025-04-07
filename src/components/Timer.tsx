@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Timer() {
+export default function Timer(wordToGuess : string, key : number) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
@@ -9,7 +9,7 @@ export default function Timer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [wordToGuess]);
 
   const formatTime = (s: number) => {
     const mins = Math.floor(s / 60).toString().padStart(2, "0");

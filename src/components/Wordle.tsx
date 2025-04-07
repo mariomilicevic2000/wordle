@@ -27,6 +27,7 @@ export default function Wordle() {
     const [hasLost, setHasLost] = useState(false);
     const [flippingTiles, setFlippingTiles] = useState<number[]>([]);
     const [isShaking, setIsShaking] = useState<boolean>(false);
+    const [timerKey, setTimerKey] = useState<number>(0); 
 
 
     // Reference for hidden input field
@@ -39,10 +40,10 @@ export default function Wordle() {
 
     function handleBlur() {
         setTimeout(() => {
-          inputRef.current?.focus();
+            inputRef.current?.focus();
         }, 0);
-      }
-      function handleSubmitGuess() {
+    }
+    function handleSubmitGuess() {
         if (hasWon || hasLost) return;
         if (
             currentRow < maxRows &&
@@ -127,9 +128,9 @@ export default function Wordle() {
         handleKeyPress({ key } as React.KeyboardEvent<HTMLInputElement>);
     }
 
-    function handleWin(){
+    function handleWin() {
         const wins = Number(localStorage.getItem("wordleWins")) || 0;
-        localStorage.setItem("wordleWins", (wins+1).toString());
+        localStorage.setItem("wordleWins", (wins + 1).toString());
 
         saveGameStats("won");
 
@@ -138,9 +139,9 @@ export default function Wordle() {
         }, 2000);
     }
 
-    function handleLose(){
+    function handleLose() {
         const losses = Number(localStorage.getItem("wordleLosses")) || 0;
-        localStorage.setItem("wordleLosses", (losses+1).toString());
+        localStorage.setItem("wordleLosses", (losses + 1).toString());
 
         saveGameStats("loss");
 
@@ -149,15 +150,15 @@ export default function Wordle() {
         }, 2000);
     }
 
-    function saveGameStats(outcome : string){
+    function saveGameStats(outcome: string) {
         const triedGuesses = guesses.map(row => row.join(""));
 
         const gameStats = {
             result: outcome,
             triedGuesses: triedGuesses,
-            feedbacks : tileFeedbackRows,
+            feedbacks: tileFeedbackRows,
             correctGuess: wordToGuess,
-            time: Math.floor((new Date().getTime() - gameStartTime)/1000),
+            time: Math.floor((new Date().getTime() - gameStartTime) / 1000),
         }
 
         // if(gameStats){
@@ -179,19 +180,24 @@ export default function Wordle() {
         setHasWon(false);  // Hide modal if applicable
         setHasLost(false);
         setFlippingTiles([]); // Clear flipping animation tracking
+        setTimerKey(prev => prev+1);
 
         setTimeout(() => inputRef.current?.focus(), 0); // Regain input focus
     }
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 py-8 bg-gradient-to-b from-slate-50 to-slate-200 transition-colors">
-            {(hasWon || hasLost) && <GameOverModal onClose={resetGame} hasWon={hasWon} hasLost={hasLost} wordToGuess={wordToGuess}/>}
-            <Timer startTrigger={guesses.flat()}/>
+            {(hasWon || hasLost) && <GameOverModal onClose={resetGame} hasWon={hasWon} hasLost={hasLost} wordToGuess={wordToGuess} />}
+            <span className="flex flex-row justify-between items-center">
+                <Timer wordToGuess={wordToGuess} key={timerKey}/>
+                <button onClick={handleLose} className="mx-6 bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow transition-colors">Give up</button>
+            </span>
+
             {/* Hidden input field to capture all user input */}
             <input
                 contentEditable={true}
                 readOnly={true}
-                style={{cursor:"default"}}
+                style={{ cursor: "default" }}
                 ref={inputRef}
                 onBlur={handleBlur}
                 type="text"
@@ -202,18 +208,17 @@ export default function Wordle() {
                 tabIndex={-1}
             />
             <div className="mb-6">
-            <Grid
-                guessesByLetters={guesses}
-                tileFeedbacksRows={tileFeedbackRows}
-                currentRow={currentRow}
-                maxRows={maxRows}
-                flippingTiles={flippingTiles}
-                isShaking={isShaking}
-            />
+                <Grid
+                    guessesByLetters={guesses}
+                    tileFeedbacksRows={tileFeedbackRows}
+                    currentRow={currentRow}
+                    maxRows={maxRows}
+                    flippingTiles={flippingTiles}
+                    isShaking={isShaking}
+                />
             </div>
 
             <Keyboard keyStatuses={keyStatuses} onKeyClick={onKeyClick} />
-            <button onClick={handleLose} className="mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow transition-colors">Give up</button>
         </div>
     );
 }
