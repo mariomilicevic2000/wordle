@@ -1,6 +1,6 @@
-import { potentialWords } from "./data";
+// import { potentialWords } from "./data";
 
-const TOTAL_WORDS = potentialWords.length;
+// const TOTAL_WORDS = potentialWords.length;
 
 
 export function filterWords(potentialWords: string[], guess: string[], feedback: string[]) {
