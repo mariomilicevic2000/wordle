@@ -19,7 +19,7 @@ const Key = ({ letter, keyStatus, onKeyClick }: KeyProps) => {
         onClick={() => onKeyClick(letter)}
         className={clsx(
           "flex justify-center items-center text-lg font-semibold rounded-sm m-0.5 transition-all",
-          "w-[8vw] h-[8vw] min-w-[30px] min-h-[40px] max-w-[50px] max-h-[60px]", // Responsive size
+          "w-[8vw] h-[10vw] min-w-[30px] min-h-[50px] max-w-[50px] max-h-[60px]", // Responsive size
           {
             "bg-gray-300": keyStatus === "not-guessed",
             "bg-yellow-500": keyStatus === "wrong-place",
