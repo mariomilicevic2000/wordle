@@ -12,7 +12,7 @@ interface TileProps {
 
 // const tileStyle = "h-12 w-12 rounded-sm border-gray-400 border-2 mx-1 uppercase text-[24px] text-center font-bold flex items-center justify-center sm:h-16 sm:w-16 sm:text-[36px]";
 const tileStyle =
-"h-12 w-12 rounded-sm border-gray-400 border-2 mx-1 uppercase text-[24px] text-center font-bold flex items-center justify-center sm:h-16 sm:w-16 sm:text-[36px] md:h-20 md:w-20 md:text-[48px] lg:h-18 lg:w-18 lg:text-[40px]";
+"h-12 w-12 rounded-sm border-gray-400 border-2 mx-1 uppercase text-[24px] text-center font-bold flex items-center justify-center sm:h-16 sm:w-16 sm:text-[36px] lg:h-16 lg:w-16 lg:text-[40px]";
 
 const Tile = ({ letter = "", tileStatus, tileFeedback, isFlipping }: TileProps) => {
     return (
