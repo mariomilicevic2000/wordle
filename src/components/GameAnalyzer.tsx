@@ -75,7 +75,7 @@ export default function GameAnalyzer() {
         // Filter potential words for each guess and feedback
         for (let i = 0; i < guesses.length; i++) {
             if (!guesses[i] || !feedbacks[i]) {
-                console.error("Missing guess or feedback for index", i);
+                // console.error("Missing guess or feedback for index", i);
                 continue;
             }
 
