@@ -186,12 +186,13 @@ export default function Wordle() {
         <div className="flex flex-col items-center justify-center">
             {(hasWon || hasLost) && <GameOverModal onClose={resetGame} hasWon={hasWon} hasLost={hasLost} wordToGuess={wordToGuess}/>}
             {/* Hidden input field to capture all user input */}
-            <div
+            <input
                 contentEditable={true}
+                readOnly={true}
                 style={{cursor:"default"}}
                 ref={inputRef}
                 onBlur={handleBlur}
-                // type="text"
+                type="text"
                 className="absolute opacity-0 w-0 h-0"
                 onKeyDown={handleKeyPress}
                 autoFocus
