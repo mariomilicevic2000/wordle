@@ -15,8 +15,8 @@ export default function Keyboard({ keyStatuses, onKeyClick }: KeyboardProps) {
     ];
 
     return (
-        <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center w-full">
-            {/* <Key key="backspace" letter="Backspace" keyStatus="not-guessed" onKeyClick={onKeyClick} /> */}
+        <div className="flex flex-col justify-center items-center w-full">
+
             <div className="flex flex-col items-center justify-center w-full sm:w-auto">
                 {rows.map((row, rowIndex) => (
                     <div key={rowIndex} className="flex justify-center w-full">
@@ -34,7 +34,11 @@ export default function Keyboard({ keyStatuses, onKeyClick }: KeyboardProps) {
                     </div>
                 ))}
             </div>
-            {/* <Key key="enter" letter="Enter" keyStatus="not-guessed" onKeyClick={onKeyClick} /> */}
+            <div className="flex flex-row items-center justify-center mt-4">
+                <Key key="backspace" letter="Backspace" keyStatus="not-guessed" onKeyClick={onKeyClick} />
+                <Key key="enter" letter="Enter" keyStatus="not-guessed" onKeyClick={onKeyClick} />
+            </div>
+
         </div>
     );
 }
