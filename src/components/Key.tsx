@@ -24,7 +24,8 @@ const Key = ({ letter, keyStatus, onKeyClick }: KeyProps) => {
             "bg-gray-300": keyStatus === "not-guessed",
             "bg-yellow-500": keyStatus === "wrong-place",
             "bg-green-500": keyStatus === "correct",
-            "bg-red-400": keyStatus === "wrong"
+            "bg-red-400": keyStatus === "wrong",
+            "border-black border-2": letter === "Enter" || letter === "Backspace"
           }
         )}
       >
