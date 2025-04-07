@@ -188,6 +188,7 @@ export default function Wordle() {
             {/* Hidden input field to capture all user input */}
             <div
                 contentEditable={true}
+                style={{cursor:"default"}}
                 ref={inputRef}
                 onBlur={handleBlur}
                 // type="text"
