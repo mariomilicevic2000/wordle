@@ -194,6 +194,7 @@ export default function Wordle() {
                 className="absolute opacity-0 w-0 h-0"
                 onKeyDown={handleKeyPress}
                 autoFocus
+                onClick={(e) => e.preventDefault()}
             />
 
             <Grid
