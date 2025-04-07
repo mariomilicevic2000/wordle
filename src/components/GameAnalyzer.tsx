@@ -6,6 +6,7 @@ import { TileFeedback } from "../types";
 import ReviewCard from "./ReviewCard";
 import PostGameSummaryCard from "./PostGameSummaryCard";
 // import { guessHotness } from "../analysisutils";
+import { useNavigate } from "react-router";
 
 
 export default function GameAnalyzer() {
@@ -17,6 +18,11 @@ export default function GameAnalyzer() {
     const [correctGuess, setCorrectGuess] = useState<string>("");
     const [result, setResult] = useState<string | null>(null);
     const [time, setTime] = useState<number | null>(null);
+
+    const navigate = useNavigate();
+    function handleNavigate(){
+        return navigate('/');
+    }
 
     // Fetch all games' data and extract the latest game data
     useEffect(() => {
@@ -120,7 +126,9 @@ export default function GameAnalyzer() {
     // const hotnessValues = guessHotness(guessesJoined, correctGuess, wordsHistory, TOTAL_WORDS);
 
     return (
-        <div>
+        <div className="flex flex-col justify-center items-center">
+            <p>Want to play again?</p>
+            <button onClick={handleNavigate} className="m-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Play Again!</button>
             <PostGameSummaryCard result={result!} guesses={guesses} time={time!} correctGuess={correctGuess}/>
             <ReviewCard totalGames={totalGames} wins={wins} losses={losses} winrate={winrate} avgGuesses={avgGuesses} avgTime={avgTime} />
 
