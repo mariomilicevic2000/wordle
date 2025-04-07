@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function Timer(wordToGuess : string, key : number) {
+interface TimerProps{
+    wordToGuess : string,
+    key : number
+}
+
+export default function Timer({wordToGuess, key} : TimerProps) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
