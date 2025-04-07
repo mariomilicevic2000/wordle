@@ -48,5 +48,6 @@ U nastavku, korisnik ima priliku analizirati svoje pokušaje iz prethodne partij
 - Naprednija vizualizacija statističkih podataka koristeći Recharts.
 - Leaderboard.
 - Tamni mod.
+- Hard mode (informacije dobivene u prethodnim pokušajima se moraju iskoristiti)
 - Error management
 - Smanjiti broj kandidata za traženu riječ jer u trenutnom datasetu ima jako puno nepoznatih riječi
