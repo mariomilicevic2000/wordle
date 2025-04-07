@@ -5,6 +5,7 @@ import { potentialWords } from "../data";
 import Grid from "./Grid";
 import Keyboard from "./Keyboard";
 import GameOverModal from "./GameOverModal";
+import Timer from "./Timer";
 
 const maxRows = 6;
 
@@ -185,6 +186,7 @@ export default function Wordle() {
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 py-8 bg-gradient-to-b from-slate-50 to-slate-200 transition-colors">
             {(hasWon || hasLost) && <GameOverModal onClose={resetGame} hasWon={hasWon} hasLost={hasLost} wordToGuess={wordToGuess}/>}
+            <Timer startTrigger={guesses.flat()}/>
             {/* Hidden input field to capture all user input */}
             <input
                 contentEditable={true}
