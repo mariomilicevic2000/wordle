@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { filterWords } from "../analysisutils";
-import { potentialWords } from "../data";
+import { potentialSolutions } from "../data";
 import DisplayRow from "./DisplayRow";
 import { TileFeedback } from "../types";
 import ReviewCard from "./ReviewCard";
@@ -69,7 +69,7 @@ export default function GameAnalyzer() {
             return;
         }
 
-        let currentWords = [...potentialWords]; // Start with all potential words
+        let currentWords = [...potentialSolutions]; // Start with all potential words
         const wordCounts: number[] = []; // Array to store the word count at each iteration
 
         // Filter potential words for each guess and feedback
@@ -118,6 +118,17 @@ export default function GameAnalyzer() {
     const avgGuesses: string = totalGuesses > 0 ? (totalGuesses / wins).toFixed(2) : "N/A";
     const totalTime: number = gameData.filter(game => game.result === "won").reduce((acc, game) => acc + game.time, 0);
     const avgTime: string = totalTime > 0 ? (totalTime / wins).toFixed(2) : "N/A";
+    const winStreak : number = (()  => {
+      let streak = 0;
+      for(let i = gameData.length - 1 ; i >= 0; i--){
+        if(gameData[i].result === "won"){
+          streak++;
+        } else {
+          break;
+        }
+      }
+      return streak;
+    })(); 
     
 
     // TODO : Come up with a better score, incorporate entropy analysis
@@ -151,10 +162,11 @@ export default function GameAnalyzer() {
             winrate={winrate}
             avgGuesses={avgGuesses}
             avgTime={avgTime}
+            winStreak={winStreak}
           />
       
           <p className="text-md text-gray-600">
-            There are <span className="font-semibold text-blue-500">{potentialWords.length}</span> possible words at the start.
+            There are <span className="font-semibold text-blue-500">{potentialSolutions.length}</span> possible words at the start.
           </p>
       
           <div className="w-full max-w-2xl space-y-6 mt-4">
@@ -179,11 +191,11 @@ export default function GameAnalyzer() {
                       </p>
                         <p className="text-gray-600">This guess eliminates {" "}
                             {guessIndex === 0 
-                            ? (potentialWords.length-wordsHistory[guessIndex]) 
+                            ? (potentialSolutions.length-wordsHistory[guessIndex]) 
                             : (wordsHistory[guessIndex-1]-wordsHistory[guessIndex])
                         } words from selection</p>
                       </>
-                    ) : guess.every((l, i) => l.toUpperCase() === correctGuess[i].toUpperCase()) ? (
+                    ) : guess.every((letter, index) => letter.toUpperCase() === correctGuess[index].toUpperCase()) ? (
                       <p className="text-green-600 font-semibold">You guessed it right!</p>
                     ) : (
                       <p className="text-red-600 font-semibold">You lost!</p>

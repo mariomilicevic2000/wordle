@@ -151,7 +151,11 @@ export default function Wordle() {
     }
 
     function saveGameStats(outcome: string) {
+        const existingGameData = JSON.parse(localStorage.getItem("wordleData") || "[]");
+
         const triedGuesses = guesses.map(row => row.join(""));
+
+        console.log(existingGameData);
 
         const gameStats = {
             result: outcome,
@@ -166,7 +170,7 @@ export default function Wordle() {
         // } else {
         //     console.log("wtf");
         // }
-        const existingGameData = JSON.parse(localStorage.getItem("wordleData") || "[]");
+        
         existingGameData.push(gameStats);
         localStorage.setItem("wordleData", JSON.stringify(existingGameData));
     }

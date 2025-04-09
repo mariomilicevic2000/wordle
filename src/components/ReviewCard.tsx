@@ -5,9 +5,10 @@ interface ReviewCardProps {
     winrate : number,
     avgGuesses : string,
     avgTime : string,
+    winStreak : number,
 }
 
-export default function ReviewCard({totalGames, wins, losses, winrate, avgGuesses, avgTime} : ReviewCardProps) {
+export default function ReviewCard({totalGames, wins, losses, winrate, avgGuesses, avgTime, winStreak} : ReviewCardProps) {
     return (
         <div>
             <div className="bg-white shadow-md rounded-xl p-6 w-full max-w-md space-y-3 mt-6">
@@ -35,6 +36,10 @@ export default function ReviewCard({totalGames, wins, losses, winrate, avgGuesse
                 <div className="flex justify-between">
                     <span className="font-medium">Avg. Time to Win:</span>
                     <span>{avgTime}s</span>
+                </div>
+                <div className="flex justify-between">
+                    <span className="font-medium">Current win streak:</span>
+                    <span>{winStreak}</span>
                 </div>
             </div>
         </div>
