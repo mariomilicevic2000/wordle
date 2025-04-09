@@ -1,10 +1,10 @@
-import { potentialWords, QWERTY_MAPPING } from "./data";
+import { potentialSolutions, QWERTY_MAPPING } from "./data";
 import { KeyStatus, TileFeedback } from "./types";
 
 export function getRandomWord() : string{
-    const randomIndex = Math.floor(Math.random() * potentialWords.length);
+    const randomIndex = Math.floor(Math.random() * potentialSolutions.length);
 
-    return potentialWords[randomIndex];
+    return potentialSolutions[randomIndex];
 }
 
 export function calculateKeyStatuses(
